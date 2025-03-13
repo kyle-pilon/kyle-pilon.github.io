@@ -17,6 +17,9 @@ const Hero = () => {
                 <img src={profilePic} alt="Kyle Pilon" />
             </div>
         </div>
+        <div className="scroll-indicator">
+            <span>↓ Scroll down to see my work!</span>
+        </div>
     </section>
   );
 };
