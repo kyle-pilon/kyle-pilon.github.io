@@ -14,6 +14,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+  font-family: 'Matrix Book';
+  src: url('/fonts/Yu-Gi-Oh-Matrix-Book') format('truetype');
+}
+
+@font-face {
+  font-family: 'Matrix Regular Small Caps';
+  src: url('/fonts/Yu-Gi-Oh-Matrix-Regular-Small-Caps-1.ttf') format('truetype');
+}
 
 /*
 a {
@@ -31,6 +40,11 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Matrix Book', serif;
 }
 
 /*
