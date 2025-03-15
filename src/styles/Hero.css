@@ -44,7 +44,6 @@
   height: auto; /* Auto-scale height to keep proportions */
   max-height: 500px; /* Prevents it from getting too tall */
   object-fit: cover;
-  border-radius: 50px;
 }
 
 .scroll-indicator {
