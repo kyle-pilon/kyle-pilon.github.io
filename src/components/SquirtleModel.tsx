@@ -12,6 +12,12 @@ const SquirtleModel = () => {
             modelRef.current.rotation.y += 0.01;
         }
     });
+
+    scene.traverse((obj) => {
+        if (obj instanceof THREE.Mesh) {
+            obj.material = new THREE.MeshStandardMaterial({ color: "#049ef4" });
+        }
+    });
   
     return (
       <primitive 
