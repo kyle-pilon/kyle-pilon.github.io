@@ -6,7 +6,6 @@ const About = () => {
     return (
       <section className="about">
         <div className="about-container">
-          {/* Left Side - Text */}
           <div className="about-text">
             <h2>About Me</h2>
             <p>
@@ -16,21 +15,15 @@ const About = () => {
               I enjoy solving complex problems and creating intuitive, impactful solutions.
             </p>
           </div>
-          
-          {/* Right Side - Image */}
           <div className="about-image">
             <img src={familyPic} alt="Kyle and family" />
           </div>
         </div>
 
-        {/* Alternate Layout for 3D Model */}
-        <div className="about-container reverse">
-          {/* Left Side - 3D Model */}
+        <div className="about-container">
           <div className="about-model">
             <SquirtleScene />
           </div>
-
-          {/* Right Side - Gaming Paragraph */}
           <div className="about-text">
             <p>
               Outside of coding, I love playing Super Smash Bros., where my main is 
