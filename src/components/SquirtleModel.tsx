@@ -1,10 +1,11 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import { Suspense, useRef } from "react";
+import * as THREE from "three";
 
 const SquirtleModel = () => {
     const { scene } = useGLTF("/models/scene.gltf"); // Load .gltf model
-    const modelRef = useRef();
+    const modelRef = useRef<THREE.Object3D | null>(null);
 
     useFrame(() => {
         if  (modelRef.current) {
