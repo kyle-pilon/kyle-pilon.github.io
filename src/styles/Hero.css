@@ -40,7 +40,7 @@
 }
 
 .hero-image img {
-  max-width: 70%; /* 60% of the container width */
+  max-width: 70%; /* 70% of the container width */
   height: auto; /* Auto-scale height to keep proportions */
   max-height: 500px; /* Prevents it from getting too tall */
   object-fit: cover;
