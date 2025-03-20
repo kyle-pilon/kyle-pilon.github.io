@@ -23,7 +23,7 @@
   --button-bg: #508B82; /* Viridian */
   --button-text: #E4F1F1; /* Azure Web */
   --danger: #67222A; /* Wine */
-  #65BBBE /* Accent glow */
+  --secondary-accent: #65BBBE; /* Accent glow */
 }
 
 a { /* Placeholder styles for links */
