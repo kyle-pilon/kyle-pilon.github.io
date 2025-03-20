@@ -26,6 +26,11 @@
   --secondary-accent: #65BBBE; /* Accent glow */
 }
 
+@font-face {
+  font-family: 'Interstellar';
+  src: url('/fonts/Linotype Didot Bold.otf') format('opentype');
+}
+
 a { /* Placeholder styles for links */
   font-weight: 500; /* Remove font-weight */
   color: var(--accent);
@@ -57,7 +62,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: Helvetica, serif;
+  font-family: 'Interstellar', sans-serif;
   color: var(--accent)
 }
 
