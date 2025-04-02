@@ -52,3 +52,9 @@ export default tseslint.config({
   },
 })
 ```
+
+# Dev Notes
+
+React + Vite + Typescript + CSS
+
+  
