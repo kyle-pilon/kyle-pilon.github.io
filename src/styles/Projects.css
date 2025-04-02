@@ -1,0 +1,101 @@
+.projects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 0rem;
+}
+
+.projects h2 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+
+.projects-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.project-card {
+    background-color: var(--secondary-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    /* align-items: center; */ 
+    gap: 1.5rem;
+    overflow: hidden;
+}
+
+/* Basic card content styling */
+
+.project-image-wrapper {
+    flex-basis: 40%;
+}
+
+.project-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.project-info {
+    flex-basis: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-title {
+    font-size: 1.6rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.project-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.project-tech-stack {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tech-tag {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    padding: 0.3rem, 0.8rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+.project-link-button {
+    display: inline-block;
+    padding: 0.6rem, 1.2rem;
+    background-color: var(--accent);
+    color: var(--text-primary);
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.project-link-button:hover {
+    background-color: var(--highlight);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
