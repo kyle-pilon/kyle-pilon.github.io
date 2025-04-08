@@ -1,38 +1,99 @@
+/* Existing styles remain the same */
 .projects {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4rem 0rem;
+    padding: 4rem 1rem; /* Add some horizontal padding */
+    overflow-x: hidden; /* Prevent horizontal scrollbars from staggering */
 }
 
 .projects h2 {
-    font-size: 2rem;
+    font-size: 2rem; /* Adjusted for consistency */
     margin-bottom: 3rem;
+    color: var(--text-primary); /* Make sure heading color is defined */
 }
 
 .projects-container {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 4rem; /* Increased gap for better stagger visibility */
     max-width: 1000px;
-    width: 100%;
+    width: 90%; /* Use percentage for better responsiveness */
+    margin: 0 auto; /* Center the container */
 }
 
 .project-card {
     background-color: var(--secondary-bg);
     border-radius: 8px;
     padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Slightly enhanced shadow */
     display: flex;
-    /* align-items: center; */ 
-    gap: 1.5rem;
+    align-items: flex-start; /* Align items to the top */
+    gap: 2rem; /* Slightly increased gap */
     overflow: hidden;
+    transition: transform 0.3s ease-out; /* Smooth transition for staggering */
+
+    /* --- Staggering --- */
+    /* Default state (odd cards) - shifted slightly left */
+    transform: translateX(-15px);
 }
 
-/* Basic card content styling */
+/* --- Alternating & Staggering for Even Cards --- */
+.project-card:nth-child(even) {
+    flex-direction: row-reverse; /* Swap image and text order */
+
+    /* Shift even cards slightly right */
+    transform: translateX(15px);
+}
+
+
+/* --- Responsive adjustments --- */
+@media (max-width: 768px) {
+    .project-card,
+    .project-card:nth-child(even) {
+        flex-direction: column; /* Stack vertically on smaller screens */
+        transform: translateX(0); /* Reset stagger on smaller screens */
+        align-items: center; /* Center content when stacked */
+        text-align: center; /* Center text */
+    }
+
+    .project-image-wrapper {
+        flex-basis: auto; /* Reset flex-basis */
+        width: 80%; /* Control image width */
+        max-width: 350px; /* Max image width */
+        margin-bottom: 1.5rem;
+    }
+
+    .project-info {
+        flex-basis: auto; /* Reset flex-basis */
+        width: 100%;
+        align-items: center; /* Center items within info block */
+    }
+
+    .project-tech-stack {
+       justify-content: center; /* Center tech tags */
+    }
+
+     .project-links {
+       justify-content: center; /* Center link buttons */
+    }
+
+    .projects-container {
+        gap: 3rem; /* Adjust gap for mobile */
+        width: 95%; /* Use more width on mobile */
+    }
+
+     .projects {
+        padding: 3rem 0.5rem; /* Adjust padding for mobile */
+     }
+}
+
+
+/* Card content styling (minor adjustments/additions) */
 
 .project-image-wrapper {
-    flex-basis: 40%;
+    flex-basis: 45%; /* Adjust basis slightly if needed */
+    flex-shrink: 0; /* Prevent image wrapper from shrinking */
 }
 
 .project-image {
@@ -40,10 +101,11 @@
     width: 100%;
     height: auto;
     border-radius: 4px;
+    object-fit: cover; /* Ensures image covers the area nicely */
 }
 
 .project-info {
-    flex-basis: 60%;
+    flex-basis: 55%; /* Adjust basis slightly if needed */
     display: flex;
     flex-direction: column;
 }
@@ -52,13 +114,15 @@
     font-size: 1.6rem;
     margin-top: 0;
     margin-bottom: 0.75rem;
+    color: var(--accent); /* Use accent color for title */
 }
 
 .project-description {
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 1.5rem;
-    flex-grow: 1;
+    flex-grow: 1; /* Allows description to push links down */
+    color: var(--text-secondary); /* Use secondary text color */
 }
 
 .project-tech-stack {
@@ -69,33 +133,52 @@
 }
 
 .tech-tag {
-    background-color: var(--button-bg);
-    color: var(--button-text);
-    padding: 0.3rem, 0.8rem;
-    border-radius: 8px;
+    background-color: var(--button-bg); /* Use consistent variable */
+    color: var(--button-text);     /* Use consistent variable */
+    padding: 0.3rem 0.8rem;        /* Corrected padding syntax */
+    border-radius: 12px;           /* Pill shape */
     font-size: 0.8rem;
+    font-weight: 500;
 }
 
 .project-links {
     display: flex;
     gap: 1rem;
-    margin-top: auto;
+    margin-top: auto; /* Pushes links to the bottom */
 }
 
 .project-link-button {
     display: inline-block;
-    padding: 0.6rem, 1.2rem;
+    padding: 0.6rem 1.2rem;     /* Corrected padding syntax */
     background-color: var(--accent);
-    color: var(--text-primary);
+    color: var(--text-primary); /* Ensure contrast */
     border-radius: 5px;
     text-decoration: none;
     text-align: center;
     transition: background-color 0.3s ease, transform 0.2s ease;
     border: 1px solid transparent;
+    font-weight: 600;
 }
 
 .project-link-button:hover {
-    background-color: var(--highlight);
-    color: var(--text-primary);
-    transform: translateY(-2px);
+    background-color: var(--highlight); /* Ensure highlight is defined */
+    color: var(--text-primary); /* Ensure contrast on hover */
+    transform: translateY(-3px); /* Enhanced hover effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
 }
+
+/* Optional: Secondary button style for GitHub */
+.project-link-button:last-child { /* Target the second button if both exist */
+    background-color: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+}
+
+.project-link-button:last-child:hover {
+     background-color: rgba(var(--accent-rgb), 0.1); /* Subtle background on hover - assuming you have --accent-rgb */
+     color: var(--highlight);
+     border-color: var(--highlight);
+}
+
+/* If you don't have --accent-rgb, use a semi-transparent version of --accent */
+/* Example: background-color: #yourAccentColor1A; (add alpha hex like 1A for ~10% opacity) */

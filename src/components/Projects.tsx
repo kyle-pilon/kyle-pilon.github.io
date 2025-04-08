@@ -44,46 +44,47 @@ const projectsData: Project[] = [
 
 
 const Projects: React.FC = () => {
-  return (
-    <section id="projects" className="projects">
-      <h2>PROJECTS</h2>
-      <div className="projects-container">
-        {projectsData.map((project) => (
+    return (
+        <section id="projects" className="projects">
+            <h2>PROJECTS</h2>
+            <div className="projects-container">
+                {projectsData.map((project) => ( // Add index here if needed for CSS, but :nth-child is better
+                    // Add alternating class if needed, but :nth-child is cleaner
+                    <div key={project.id} className="project-card">
+                        {/* Image Wrapper */}
+                        <div className="project-image-wrapper">
+                            <img src={project.imageUrl} alt={`${project.title} preview`} className="project-image" />
+                        </div>
 
-          <div key={project.id} className="project-card">
+                        {/* Info Wrapper */}
+                        <div className="project-info">
+                            <h3 className="project-title">{project.title}</h3>
+                            <p className="project-description">{project.description}</p>
 
-            <div className="project-image-wrapper">
-              <img src={project.imageUrl} alt={`${project.title} preview`} className="project-image" />
-            </div>
+                            <div className="project-tech-stack">
+                                {project.techStack.map((tech) => (
+                                    <span key={tech} className="tech-tag">{tech}</span>
+                                ))}
+                            </div>
 
-            <div className="project-info">
-              <h3 className="project-title">{project.title}</h3>
-              <p className="project-description">{project.description}</p>
-
-              <div className="project-tech-stack">
-                {project.techStack.map((tech) => (
-                  <span key={tech} className="tech-tag">{tech}</span>
+                            <div className="project-links">
+                                {project.liveUrl && (
+                                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="project-link-button">
+                                        Live Demo
+                                    </a>
+                                )}
+                                {project.repoUrl && (
+                                    <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="project-link-button">
+                                        GitHub Repo
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 ))}
-              </div>
-
-              <div className="project-links">
-                {project.liveUrl && (
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="project-link-button">
-                    Live Demo
-                  </a>
-                )}
-                {project.repoUrl && (
-                  <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="project-link-button">
-                    GitHub Repo
-                  </a>
-                )}
-              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default Projects;
