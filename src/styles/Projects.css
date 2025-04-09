@@ -35,7 +35,7 @@
 
     /* --- Staggering --- */
     /* Default state (odd cards) - shifted slightly left */
-    transform: translateX(-15px);
+    transform: translateX(-55px);
 }
 
 /* --- Alternating & Staggering for Even Cards --- */
@@ -43,7 +43,7 @@
     flex-direction: row-reverse; /* Swap image and text order */
 
     /* Shift even cards slightly right */
-    transform: translateX(15px);
+    transform: translateX(55px);
 }
 
 

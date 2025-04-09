@@ -48,8 +48,7 @@ const Projects: React.FC = () => {
         <section id="projects" className="projects">
             <h2>PROJECTS</h2>
             <div className="projects-container">
-                {projectsData.map((project) => ( // Add index here if needed for CSS, but :nth-child is better
-                    // Add alternating class if needed, but :nth-child is cleaner
+                {projectsData.map((project) => (
                     <div key={project.id} className="project-card">
                         {/* Image Wrapper */}
                         <div className="project-image-wrapper">
