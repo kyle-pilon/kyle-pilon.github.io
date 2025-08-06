@@ -57,8 +57,12 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  color: var(--text-primary);
   background-color: var(--primary-bg);
-  color: var(--text-primary)
+  background-image: url('../assets/flower-of-life.svg');
+  background-repeat: repeat;
+  background-size: 300px;
+  background-attachment: fixed;
 }
 
 h1, h2, h3, h4, h5, h6 {
