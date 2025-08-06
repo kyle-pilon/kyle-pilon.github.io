@@ -1,22 +1,59 @@
+import { useState } from 'react';
 import './../styles/Contact.css';
 import myPic from '../assets/beach.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
-const Contact: React.FC = () => { 
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
 
-  // Basic handler to prevent default form submission
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+const Contact: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
-    alert("Form submission logic needs to be implemented! Connect to EmailJS, Formspree, Netlify, or a backend.");
-    // Add your form submission code here
-    // Consider using FormData for easier access:
-    // const formData = new FormData(event.currentTarget);
-    // const name = formData.get('name');
-    // const email = formData.get('email');
-    // const message = formData.get('message');
-    // console.log({ name, email, message });
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('https://formspree.io/f/mvgqwedd', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -29,45 +66,81 @@ const Contact: React.FC = () => {
         <div className="contact-content">
           <h2>CONTACT ME</h2>
           <p>
-            Have a question, project idea, or just want to connect? Feel free to reach out!
+            Have a question, project idea, or just want to connect? I'd love to hear from you!
           </p>
 
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">Name</label>
-              <input type="text" id="name" name="name" required />
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                value={formData.name}
+                onChange={handleInputChange}
+                required 
+              />
             </div>
+            
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="email" id="email" name="email" required />
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                value={formData.email}
+                onChange={handleInputChange}
+                required 
+              />
             </div>
+            
             <div className="form-group">
               <label htmlFor="message">Message</label>
-              <textarea id="message" name="message" rows={5} required></textarea>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows={5} 
+                value={formData.message}
+                onChange={handleInputChange}
+                required
+              />
             </div>
-            <button type="submit" className="submit-btn">Send Message</button>
-          </form>
+            
+            <button 
+              type="submit" 
+              className="submit-btn"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </button>
 
-          <div className="contact-socials">
-            <h3>Or find me on:</h3>
-            <ul>
-              <li>
-                <a href="YOUR_LINKEDIN_URL" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
-                  <FontAwesomeIcon icon={faLinkedin} className="social-fa-icon" />
-                </a>
-              </li>
-              <li>
-                <a href="YOUR_GITHUB_URL" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
-                  <FontAwesomeIcon icon={faGithub} className="social-fa-icon" />
-                </a>
-              </li>
-              <li>
-                <a href="mailto:your.email@example.com" aria-label="Send Email">
-                  <FontAwesomeIcon icon={faEnvelope} className="social-fa-icon" />
-                </a>
-              </li>
-            </ul>
-          </div>
+            {submitStatus === 'success' && (
+              <div className="form-message success">
+                Thanks! Your message has been sent successfully.
+              </div>
+            )}
+            
+            {submitStatus === 'error' && (
+              <div className="form-message error">
+                Sorry, there was an error sending your message. Please try again.
+              </div>
+            )}
+          </form>
+        </div>
+      </div>
+
+      <div className="contact-socials">
+        <h3>Connect with me</h3>
+        <div className="social-links">
+          <a href="https://linkedin.com/in/kyle-pilon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+            <FontAwesomeIcon icon={faLinkedin} className="social-icon" />
+          </a>
+          <a href="https://github.com/kyle-pilon" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+            <FontAwesomeIcon icon={faGithub} className="social-icon" />
+          </a>
+          <a href="mailto:kyle@example.com" aria-label="Send Email">
+            <FontAwesomeIcon icon={faEnvelope} className="social-icon" />
+          </a>
         </div>
       </div>
     </section>
