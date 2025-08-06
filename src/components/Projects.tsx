@@ -63,12 +63,15 @@ const Projects: React.FC = () => {
             }
         );
 
-        cardRefs.current.forEach((ref) => {
+        // Copy the current refs to avoid stale closure
+        const currentRefs = cardRefs.current;
+
+        currentRefs.forEach((ref) => {
             if (ref) observer.observe(ref);
         });
 
         return () => {
-            cardRefs.current.forEach((ref) => {
+            currentRefs.forEach((ref) => {
                 if (ref) observer.unobserve(ref);
             });
         };
@@ -83,7 +86,7 @@ const Projects: React.FC = () => {
                         key={project.id} 
                         className={`project-card ${visibleCards.has(index) ? 'visible' : ''} ${index % 2 === 0 ? 'left' : 'right'}`}
                         data-index={index}
-                        ref={el => cardRefs.current[index] = el}
+                        ref={el => { cardRefs.current[index] = el; }}
                     >
                         <div className="project-content">
                             <div className="project-text">
