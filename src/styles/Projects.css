@@ -1,184 +1,191 @@
-/* Existing styles remain the same */
 .projects {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4rem 1rem; /* Add some horizontal padding */
-    overflow-x: hidden; /* Prevent horizontal scrollbars from staggering */
+    padding: 6rem 5% 4rem 5%;
+    min-height: 100vh;
+    position: relative;
 }
 
 .projects h2 {
-    font-size: 2rem; /* Adjusted for consistency */
-    margin-bottom: 3rem;
-    color: var(--text-primary); /* Make sure heading color is defined */
+    font-size: 3rem;
+    margin-bottom: 4rem;
+    color: var(--accent);
+    text-align: center;
 }
 
 .projects-container {
     display: flex;
     flex-direction: column;
-    gap: 4rem; /* Increased gap for better stagger visibility */
-    max-width: 1000px;
-    width: 90%; /* Use percentage for better responsiveness */
-    margin: 0 auto; /* Center the container */
+    gap: 3rem;
+    max-width: 1200px;
+    width: 100%;
 }
 
 .project-card {
-    background-color: var(--secondary-bg);
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Slightly enhanced shadow */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+}
+
+.project-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-card.left.visible {
+    transform: translateY(0) translateX(-2rem);
+}
+
+.project-card.right.visible {
+    transform: translateY(0) translateX(2rem);
+}
+
+.project-content {
+    background: transparent;
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 2rem;
     display: flex;
-    align-items: flex-start; /* Align items to the top */
-    gap: 2rem; /* Slightly increased gap */
-    overflow: hidden;
-    transition: transform 0.3s ease-out; /* Smooth transition for staggering */
-
-    /* --- Staggering --- */
-    /* Default state (odd cards) - shifted slightly left */
-    transform: translateX(-55px);
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+    backdrop-filter: blur(5px);
+    background: rgba(25, 53, 62, 0.1);
 }
 
-/* --- Alternating & Staggering for Even Cards --- */
-.project-card:nth-child(even) {
-    flex-direction: row-reverse; /* Swap image and text order */
-
-    /* Shift even cards slightly right */
-    transform: translateX(55px);
+.project-card.right .project-content {
+    flex-direction: row-reverse;
 }
 
-
-/* --- Responsive adjustments --- */
-@media (max-width: 768px) {
-    .project-card,
-    .project-card:nth-child(even) {
-        flex-direction: column; /* Stack vertically on smaller screens */
-        transform: translateX(0); /* Reset stagger on smaller screens */
-        align-items: center; /* Center content when stacked */
-        text-align: center; /* Center text */
-    }
-
-    .project-image-wrapper {
-        flex-basis: auto; /* Reset flex-basis */
-        width: 80%; /* Control image width */
-        max-width: 350px; /* Max image width */
-        margin-bottom: 1.5rem;
-    }
-
-    .project-info {
-        flex-basis: auto; /* Reset flex-basis */
-        width: 100%;
-        align-items: center; /* Center items within info block */
-    }
-
-    .project-tech-stack {
-       justify-content: center; /* Center tech tags */
-    }
-
-     .project-links {
-       justify-content: center; /* Center link buttons */
-    }
-
-    .projects-container {
-        gap: 3rem; /* Adjust gap for mobile */
-        width: 95%; /* Use more width on mobile */
-    }
-
-     .projects {
-        padding: 3rem 0.5rem; /* Adjust padding for mobile */
-     }
-}
-
-
-/* Card content styling (minor adjustments/additions) */
-
-.project-image-wrapper {
-    flex-basis: 45%; /* Adjust basis slightly if needed */
-    flex-shrink: 0; /* Prevent image wrapper from shrinking */
-}
-
-.project-image {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-    object-fit: cover; /* Ensures image covers the area nicely */
-}
-
-.project-info {
-    flex-basis: 55%; /* Adjust basis slightly if needed */
+.project-text {
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
 
 .project-title {
-    font-size: 1.6rem;
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-    color: var(--accent); /* Use accent color for title */
+    font-size: 2rem;
+    margin: 0 0 1rem 0;
+    color: var(--accent);
 }
 
 .project-description {
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 1.5rem;
-    flex-grow: 1; /* Allows description to push links down */
-    color: var(--text-secondary); /* Use secondary text color */
+    color: var(--text-primary);
+    opacity: 0.9;
 }
 
 .project-tech-stack {
-    margin-bottom: 1.5rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .tech-tag {
-    background-color: var(--button-bg); /* Use consistent variable */
-    color: var(--button-text);     /* Use consistent variable */
-    padding: 0.3rem 0.8rem;        /* Corrected padding syntax */
-    border-radius: 12px;           /* Pill shape */
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    padding: 0.4rem 0.8rem;
+    border-radius: 16px;
     font-size: 0.8rem;
     font-weight: 500;
-}
-
-.project-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: auto; /* Pushes links to the bottom */
-}
-
-.project-link-button {
-    display: inline-block;
-    padding: 0.6rem 1.2rem;     /* Corrected padding syntax */
-    background-color: var(--accent);
-    color: var(--text-primary); /* Ensure contrast */
-    border-radius: 5px;
-    text-decoration: none;
-    text-align: center;
-    transition: background-color 0.3s ease, transform 0.2s ease;
     border: 1px solid transparent;
+}
+
+.project-image-wrapper {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid var(--accent);
+    text-decoration: none;
+    display: block;
+    align-self: flex-start;
+}
+
+.project-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+    transition: transform 0.3s ease;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 8px;
+}
+
+.project-image-wrapper:hover .image-overlay {
+    opacity: 1;
+}
+
+.project-image-wrapper:hover .project-image {
+    transform: scale(1.05);
+}
+
+.overlay-text {
+    color: var(--text-primary);
+    font-size: 1.1rem;
     font-weight: 600;
+    text-align: center;
 }
 
-.project-link-button:hover {
-    background-color: var(--highlight); /* Ensure highlight is defined */
-    color: var(--text-primary); /* Ensure contrast on hover */
-    transform: translateY(-3px); /* Enhanced hover effect */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
-}
 
-/* Optional: Secondary button style for GitHub */
-.project-link-button:last-child { /* Target the second button if both exist */
-    background-color: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-}
 
-.project-link-button:last-child:hover {
-     background-color: rgba(var(--accent-rgb), 0.1); /* Subtle background on hover - assuming you have --accent-rgb */
-     color: var(--highlight);
-     border-color: var(--highlight);
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .projects {
+        padding: 4rem 3% 3rem 3%;
+    }
 
-/* If you don't have --accent-rgb, use a semi-transparent version of --accent */
-/* Example: background-color: #yourAccentColor1A; (add alpha hex like 1A for ~10% opacity) */
+    .projects h2 {
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .project-card.left.visible,
+    .project-card.right.visible {
+        transform: translateY(0) translateX(0);
+    }
+
+    .project-content,
+    .project-card.right .project-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+    }
+
+    .project-text {
+        order: 2;
+    }
+
+    .project-image-wrapper {
+        order: 1;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .project-tech-stack {
+        justify-content: center;
+    }
+
+    .project-links {
+        display: none;
+    }
+}
