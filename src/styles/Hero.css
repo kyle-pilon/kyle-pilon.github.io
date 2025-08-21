@@ -1,67 +1,324 @@
+/* Base hero styles */
 .hero {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  /*
-  background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
-  color: white;
-  */
   padding: 0 5%;
-  position: relative
+  position: relative;
+  overflow: hidden;
 }
 
+/* Interactive mouse glow effect on flower-of-life background */
+.mouse-glow {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    rgba(101, 187, 190, 0.15) 0%,
+    rgba(43, 143, 130, 0.08) 40%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+  z-index: 1;
+  opacity: 0.6;
+}
+
+/* Main container */
 .hero-container {
   display: flex;
   max-width: 1200px;
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  z-index: 2;
+  position: relative;
 }
 
+/* TEXT SECTION */
 .hero-text {
   flex: 1;
   text-align: left;
+  padding-right: 2rem;
 }
 
-.hero-text h1 {
-  font-size: 4rem;
+/* Title with fade-up animation */
+.hero-title {
+  font-size: 5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.hero-text p {
-  font-size: 1.5rem;
+.hero-title.fade-up {
   opacity: 1;
+  transform: translateY(0);
 }
 
+/* Typewriter effect for paragraph */
+.hero-description {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 4.5rem;
+}
+
+.cursor {
+  color: var(--text-primary); /* White cursor */
+  font-weight: normal;
+  animation: blink 1s infinite;
+}
+
+.cursor.fade-out {
+  animation: fadeOut 1s ease-out forwards;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
+/* IMAGE SECTION */
 .hero-image {
   flex: 1;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.image-container {
+  position: relative;
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  padding: 4px;
+  animation: colorBreathe 3s ease-in-out infinite;
 }
 
 .hero-image img {
-  max-width: 70%; /* 70% of the container width */
-  height: auto; /* Auto-scale height to keep proportions */
-  max-height: 500px; /* Prevents it from getting too tall */
+  width: 100%;
+  max-width: 350px;
+  height: auto;
   object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 
+/* Subtle color breathing effect on border */
+@keyframes colorBreathe {
+  0%, 100% { 
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(43, 143, 130, 0.3);
+  }
+  50% { 
+    border-color: var(--secondary-accent);
+    box-shadow: 0 0 30px rgba(101, 187, 190, 0.5);
+  }
+}
+
+/* SCROLL INDICATOR */
 .scroll-indicator {
   position: absolute;
-  left: 10.8%; /* Aligns with text */
-  bottom: 6rem;
-  font-size: 1rem;
-  opacity: 0.8;
-  animation: fadeInOut 2s infinite;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
 }
 
-.scroll-indicator span {
-  animation: fadeInOut 2s infinite ease-in-out;
+.scroll-indicator:hover {
+  transform: translateX(-50%) translateY(-3px);
 }
 
-@keyframes fadeInOut {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
+/* White chevron arrow */
+.scroll-chevron {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.scroll-chevron span {
+  position: absolute;
+  display: block;
+  width: 12px;
+  height: 2px;
+  background: var(--text-primary); /* White color */
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+.scroll-chevron span:first-child {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) rotate(45deg);
+  transform-origin: right center;
+}
+
+.scroll-chevron span:last-child {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%) rotate(-45deg);
+  transform-origin: left center;
+}
+
+.scroll-indicator:hover .scroll-chevron span {
+  background: var(--secondary-accent);
+}
+
+.scroll-text {
+  font-size: 0.9rem;
+  color: var(--text-primary); /* White color to match arrow */
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.scroll-indicator:hover .scroll-text {
+  color: var(--secondary-accent);
+}
+
+/* Gentle bouncing animation */
+.scroll-indicator {
+  animation: gentleBounce 3s ease-in-out infinite;
+}
+
+@keyframes gentleBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-8px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-4px);
+  }
+}
+
+/* RESPONSIVE DESIGN */
+
+/* Tablet breakpoint */
+@media (max-width: 1024px) {
+  .hero {
+    padding: 0 4%;
+  }
+  
+  .hero-title {
+    font-size: 3.5rem;
+  }
+  
+  .hero-description {
+    font-size: 1.3rem;
+  }
+
+  .hero-image img {
+    max-width: 300px;
+  }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 3%;
+    height: 100vh;
+  }
+
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 3rem;
+    max-width: 100%;
+  }
+
+  .hero-text {
+    order: 2;
+    padding-right: 0;
+    width: 100%;
+  }
+
+  .hero-title {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-description {
+    font-size: 1.1rem;
+    min-height: 3.5rem;
+  }
+
+  .hero-image {
+    order: 1;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .hero-image img {
+    max-width: 280px;
+  }
+
+  /* Reduce mouse glow on mobile */
+  .mouse-glow {
+    width: 200px;
+    height: 200px;
+    opacity: 0.3;
+  }
+
+  .scroll-indicator {
+    bottom: 1.5rem;
+    gap: 0.6rem;
+  }
+
+  .scroll-text {
+    font-size: 0.8rem;
+  }
+}
+
+/* Small mobile breakpoint */
+@media (max-width: 480px) {
+  .hero {
+    padding: 1.5rem 2%;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+    min-height: 3rem;
+  }
+
+  .hero-image img {
+    max-width: 250px;
+  }
+
+  .scroll-indicator {
+    bottom: 1rem;
+  }
+}
+
+/* Accessibility - Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .colorBreathe,
+  .scroll-indicator {
+    animation: none;
+  }
+  
+  .mouse-glow {
+    opacity: 0.5;
+  }
 }
